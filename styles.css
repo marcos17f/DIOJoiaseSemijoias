@@ -378,7 +378,18 @@ footer.site { padding: 64px 0 0; }
   .prod-grid { grid-template-columns: repeat(2, 1fr); }
   .hero__content .wrap { flex-direction: column; align-items: stretch; }
   .footer-grid { grid-template-columns: 1fr; }
-  .infobar .wrap { flex-direction: column; align-items: flex-start; }
+  .infobar { font-size: 11px; }
+  .infobar .wrap { flex-direction: column; align-items: flex-start; padding: 8px 16px; gap: 6px; }
+  .infobar__left { gap: 10px; }
+  .infobar__right { gap: 10px; }
+  .infobar__left span { display: none; }
+  header.site .wrap { padding: 10px 16px; gap: 12px; }
+  .brand { gap: 8px; }
+  .brand__mark { width: 32px; height: 32px; font-size: 11px; }
+  .brand__word strong { font-size: 16px; }
+  .brand__word span { font-size: 8px; margin-top: 2px; }
+  .header__actions { gap: 12px; }
+  .nav-toggle { width: 32px; height: 32px; font-size: 14px; }
 }
 
 /* ---------- RING STORY (anel cravejado + caixinha) ----------
