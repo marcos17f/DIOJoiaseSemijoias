@@ -58,6 +58,7 @@ function addToCart(name, price, image) {
   const existing = cart.find((item) => item.name === name);
   if (existing) {
     existing.qty += 1;
+    if (!existing.image && image) existing.image = image;
   } else {
     cart.push({ id: name, name, price, image, qty: 1 });
   }
