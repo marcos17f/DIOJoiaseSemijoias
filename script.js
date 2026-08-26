@@ -54,12 +54,12 @@ const cartEmptyEl = document.getElementById('cartEmpty');
 const cartTotalEl = document.getElementById('cartTotal');
 const cartCheckoutBtn = document.getElementById('cartCheckout');
 
-function addToCart(name, price) {
+function addToCart(name, price, image) {
   const existing = cart.find((item) => item.name === name);
   if (existing) {
     existing.qty += 1;
   } else {
-    cart.push({ id: name, name, price, qty: 1 });
+    cart.push({ id: name, name, price, image, qty: 1 });
   }
   saveCart();
   renderCart();
@@ -102,15 +102,20 @@ function renderCart() {
   cart.forEach((item) => {
     const row = document.createElement('div');
     row.className = 'cart-item';
+    const imgHtml = item.image
+      ? `<img class="cart-item__img" src="${item.image}" alt="${item.name}">`
+      : '';
     row.innerHTML = `
+      ${imgHtml}
       <div class="cart-item__body">
         <p class="cart-item__name">${item.name}</p>
-        <p class="cart-item__price">${formatPrice(item.price)}</p>
+        <p class="cart-item__price">${formatPrice(item.price)} <span class="cart-item__unit">cada</span></p>
         <div class="cart-item__qty">
           <button type="button" data-action="dec" aria-label="Diminuir quantidade">−</button>
           <span>${item.qty}</span>
           <button type="button" data-action="inc" aria-label="Aumentar quantidade">+</button>
         </div>
+        <p class="cart-item__subtotal">Subtotal: <strong>${formatPrice(item.price * item.qty)}</strong></p>
       </div>
       <button type="button" class="cart-item__remove" data-action="remove">Remover</button>
     `;
@@ -161,8 +166,9 @@ document.querySelectorAll('.btn-add').forEach((btn) => {
     if (card) {
       const name = card.querySelector('h4')?.textContent.trim();
       const priceText = card.querySelector('.price-now')?.textContent.trim();
+      const image = card.querySelector('.prod-card__media img')?.getAttribute('src');
       if (name && priceText) {
-        addToCart(name, parsePrice(priceText));
+        addToCart(name, parsePrice(priceText), image);
       }
     }
     const original = btn.textContent;
