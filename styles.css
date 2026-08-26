@@ -194,20 +194,6 @@ nav.main-nav.main-nav--mobile.is-open { display: flex; }
 .btn--outline:hover { border-color: var(--gold); color: var(--gold); }
 .btn--block { width: 100%; }
 
-.hero__promo {
-  width: 280px; flex-shrink: 0;
-  background: rgba(20, 16, 11, 0.72);
-  border: 1px solid var(--gold-hairline);
-  backdrop-filter: blur(6px);
-  padding: 22px;
-}
-.hero__promo .eyebrow { display: block; margin-bottom: 10px; }
-.hero__promo h3 {
-  font-family: var(--font-serif); font-style: italic; font-weight: 600;
-  font-size: 22px; margin: 0 0 16px; line-height: 1.2;
-}
-.hero__promo .btn { width: 100%; }
-
 /* ---------- Category cards ---------- */
 .cat-grid {
   display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;
@@ -391,7 +377,6 @@ footer.site { padding: 64px 0 0; }
   .cat-grid { grid-template-columns: repeat(2, 1fr); }
   .prod-grid { grid-template-columns: repeat(2, 1fr); }
   .hero__content .wrap { flex-direction: column; align-items: stretch; }
-  .hero__promo { width: 100%; }
   .footer-grid { grid-template-columns: 1fr; }
   .infobar .wrap { flex-direction: column; align-items: flex-start; }
 }
