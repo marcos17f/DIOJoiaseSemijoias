@@ -17,7 +17,7 @@ document.querySelectorAll('.wish-btn').forEach((btn) => {
 });
 
 /* ---------- Carrinho ---------- */
-const WHATSAPP_LINK = 'https://api.whatsapp.com/message/5ZLFLZQ2FTH7A1?autoload=1&app_absent=0&utm_source=ig';
+const WHATSAPP_LINK = 'https://wa.me/5589981328198';
 const CART_STORAGE_KEY = 'dioCart';
 
 function parsePrice(text) {
@@ -155,7 +155,7 @@ if (cartCheckoutBtn) {
       '',
       `Total: ${formatPrice(totalPrice)}`,
     ].join('\n');
-    const url = `${WHATSAPP_LINK}&text=${encodeURIComponent(message)}`;
+    const url = `${WHATSAPP_LINK}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank', 'noopener');
   });
 }
