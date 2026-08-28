@@ -166,6 +166,13 @@ nav.main-nav.main-nav--mobile.is-open { display: flex; }
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
   object-position: center 28%;
 }
+@media (prefers-reduced-motion: no-preference) {
+  .hero__img { animation: hero-kenburns 24s ease-in-out infinite alternate; }
+}
+@keyframes hero-kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.09); }
+}
 .hero__scrim {
   position: absolute; inset: 0;
   background:
@@ -188,7 +195,7 @@ nav.main-nav.main-nav--mobile.is-open { display: flex; }
   transition: transform .15s ease, opacity .15s ease;
 }
 .btn:hover { transform: translateY(-1px); }
-.btn--gold { background: var(--gold); color: #171009; }
+.btn--gold { position: relative; overflow: hidden; background: var(--gold); color: #171009; }
 .btn--gold:hover { opacity: 0.92; }
 .btn--outline { border-color: var(--gold-soft); color: var(--text); }
 .btn--outline:hover { border-color: var(--gold); color: var(--gold); }
@@ -220,6 +227,7 @@ nav.main-nav.main-nav--mobile.is-open { display: flex; }
 /* ---------- Product cards ---------- */
 .prod-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .prod-card {
+  position: relative; overflow: hidden;
   border: 1px solid var(--gold-hairline);
   background: var(--bg-panel);
   display: flex; flex-direction: column;
@@ -237,10 +245,11 @@ nav.main-nav.main-nav--mobile.is-open { display: flex; }
 }
 .badge-purity {
   position: absolute; top: 12px; left: 12px; z-index: 2;
-  width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--gold-soft);
+  width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--gold);
   background: rgba(15,12,8,0.75);
+  box-shadow: inset 0 0 0 3px rgba(15,12,8,0.85), inset 0 0 0 4px var(--gold-hairline);
   display: flex; align-items: center; justify-content: center;
-  font-size: 10px; color: var(--gold); font-weight: 700;
+  font-size: 10px; color: var(--gold); font-weight: 700; letter-spacing: 0.02em;
 }
 .badge-discount {
   position: absolute; top: 12px; right: 12px; z-index: 2;
@@ -357,6 +366,36 @@ footer.site { padding: 64px 0 0; }
   width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--gold-soft);
   background: rgba(23,20,15,0.9); color: var(--gold);
   display: flex; align-items: center; justify-content: center;
+}
+
+/* ---------- Signature: facet sweep (luz pegando o corte da pedra) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .prod-card::before, .cat-card::before, .btn--gold::before {
+    content: "";
+    position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    background: linear-gradient(115deg,
+      transparent 42%,
+      rgba(243, 237, 224, 0.16) 48%,
+      rgba(198, 161, 91, 0.55) 51%,
+      transparent 58%);
+    transform: translateX(-140%);
+    transition: transform .9s cubic-bezier(.22, .61, .18, 1);
+    mix-blend-mode: overlay;
+  }
+  .prod-card:hover::before, .cat-card:hover::before, .btn--gold:hover::before {
+    transform: translateX(140%);
+  }
+}
+
+/* ---------- Scroll reveal ---------- */
+.js-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .7s ease var(--reveal-delay, 0ms), transform .7s cubic-bezier(.2, .65, .3, 1) var(--reveal-delay, 0ms);
+}
+.js-reveal.is-visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal { opacity: 1; transform: none; transition: none; }
 }
 
 /* ---------- Responsive ---------- */

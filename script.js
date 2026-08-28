@@ -196,3 +196,56 @@ if (ringStage && ringGif && 'IntersectionObserver' in window){
 } else if (ringStage){
   ringStage.classList.add('playing');
 }
+
+/* ---------- Scroll reveal ---------- */
+const revealTargets = document.querySelectorAll(
+  '.section-head, .cat-card, .prod-card, .range-card, .benefit, .blog-card, .review-card, .ring-story-copy'
+);
+revealTargets.forEach((el) => {
+  el.classList.add('js-reveal');
+  const idx = Array.prototype.indexOf.call(el.parentElement.children, el);
+  el.style.setProperty('--reveal-delay', `${Math.min(idx, 5) * 70}ms`);
+});
+
+if ('IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+  revealTargets.forEach((el) => revealObserver.observe(el));
+
+  // Salvaguarda: um salto de scroll instantâneo (âncora, tecla End, flick
+  // rápido) pode passar um elemento pela tela entre duas checagens do
+  // IntersectionObserver sem nunca reportar interseção, deixando-o
+  // opacity:0 pra sempre. Aqui a gente varre o que ainda não apareceu a
+  // cada scroll e revela na marra o que já ficou pra trás.
+  let tickingReveal = false;
+  function catchUpReveal() {
+    tickingReveal = false;
+    revealTargets.forEach((el) => {
+      if (el.classList.contains('is-visible')) return;
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('is-visible');
+        revealObserver.unobserve(el);
+      } else if (rect.bottom <= 0) {
+        el.style.transition = 'none';
+        el.classList.add('is-visible');
+        revealObserver.unobserve(el);
+      }
+    });
+  }
+  window.addEventListener('scroll', () => {
+    if (!tickingReveal) {
+      tickingReveal = true;
+      requestAnimationFrame(catchUpReveal);
+    }
+  }, { passive: true });
+  catchUpReveal();
+} else {
+  revealTargets.forEach((el) => el.classList.add('is-visible'));
+}
