@@ -1,3 +1,15 @@
+# Dependências
+node_modules/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Ambiente
+.env*.local
+
 # IDE
 .idea/
 .vscode/

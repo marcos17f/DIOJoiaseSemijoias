@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/* Paleta herdada do site original: fundo escuro quente + dourado. */
+@theme {
+  --color-bg: #17140f;
+  --color-ink: #100d09;
+  --color-panel: #1e1911;
+  --color-panel-2: #241e15;
+  --color-cream: #f3ede0;
+  --color-muted: #a79a82;
+  --color-gold: #c6a15b;
+  --color-danger: #c97b4a;
+
+  --animate-ticker: ticker 34s linear infinite;
+
+  @keyframes ticker {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@theme inline {
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-work), ui-sans-serif, system-ui, sans-serif;
+}
+
+@utility wrap {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1320px;
+  padding-inline: 1rem;
+
+  @media (min-width: 40rem) {
+    padding-inline: 1.5rem;
+  }
+}
+
+@utility eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+/* Assinatura: "facet sweep" — a luz pegando o corte da pedra no hover. */
+@utility sweep {
+  position: relative;
+  overflow: hidden;
+
+  @media (prefers-reduced-motion: no-preference) {
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      background: linear-gradient(
+        115deg,
+        transparent 42%,
+        rgba(243, 237, 224, 0.16) 48%,
+        rgba(198, 161, 91, 0.55) 51%,
+        transparent 58%
+      );
+      transform: translateX(-140%);
+      transition: transform 0.9s cubic-bezier(0.22, 0.61, 0.18, 1);
+      mix-blend-mode: overlay;
+    }
+
+    &:hover::before {
+      transform: translateX(140%);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-ticker {
+    animation: none;
+  }
+}
